@@ -72,7 +72,6 @@ urlpatterns = [
 
 {% highlight html %}
 {% raw %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,7 +95,6 @@ urlpatterns = [
 	{% endblock %}
 </body>
 </html>
-
 {% endraw %}
 {% endhighlight %}
 
@@ -107,7 +105,7 @@ urlpatterns = [
 
 * body 내부의 nav 태그 부분은 부트스트랩의 컴포넌트 중 하나인 네비게이션 바를 적용시킨 겁니다. 이 부분은 부트스트랩의 Documentation에서 기술한 코드가 조금 너무 무거워보여서 제가 미니미하게 수정한 것이므로 편하신 분은 부트스트랩의 정규 예시 코드를 사용하셔도 좋습니다.
 
-* 템플릿 상속의 핵심은 {% block body %}, {% endblock %} 부분입니다. 이 부분으로 자식 템플릿 파일(html)들의 코드가 붙여넣기 될 것이고 이외의 상기 코드 부분은 모두 공유하게 됩니다. 보다 자세한 설명은 지난 세션을 참고해주세요.
+* 템플릿 상속의 핵심은 {% raw %} {% block body %}, {% endblock %} {% endraw %} 부분입니다. 이 부분으로 자식 템플릿 파일(html)들의 코드가 붙여넣기 될 것이고 이외의 상기 코드 부분은 모두 공유하게 됩니다. 보다 자세한 설명은 지난 세션을 참고해주세요.
 
 **글쓰기 링크의 url 'new' 부분은 이후 Create 부분에서 다루게 될 부분입니다. 지금은 미리 작성해주세요.**
 
@@ -126,7 +124,7 @@ urlpatterns = [
 {% endraw %}
 {% endhighlight %}
 
-* 이렇게 작성해 줍시다. {% extends 'base.html' %} 부분이 바로 base.html을 상속받겠다, 즉, 나 자신(home.html)은 base.html의 자식 템플릿이 되겠다는 것을 의미합니다. 
+* 이렇게 작성해 줍시다. {% raw %} {% extends 'base.html' %} {% endraw %} 부분이 바로 base.html을 상속받겠다, 즉, 나 자신(home.html)은 base.html의 자식 템플릿이 되겠다는 것을 의미합니다. 
 
 * 이후 base.html 내에 지정해 주었던 body block에 붙여넣기 될 코드를 작성해주는 구문이 바로
 
