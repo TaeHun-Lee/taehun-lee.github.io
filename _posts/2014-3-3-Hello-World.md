@@ -331,7 +331,7 @@ def create(request):
 
 * 다음으로 유의미하게 보아야 할 것이 redirect 함수 부분입니다. 
 	"왜 이 부분에서 그냥 render 함수를 쓰지 않고 redirect 함수를 쓰고 있나요?" 
-	왜 그럴까요? 템플릿 파일을 작성하시다 보면 {% url 'home' %} 등과 같이 urls.py에서 지정한 이름 만으로 손쉽게 URL을 추적할 수 있던 걸 보셨을 겁니다. 이러한 기능을 **reverse** 기능이라고 하는데, 장고에서는 템플릿 뿐만 아니라 views.py 등의 BackEnd 부분에서도 이러한 URL 추적 기능을 손쉽게 사용할 수 있도록 redirect 함수를 제공하고 있습니다. 다시 말하자면 그냥 render 함수를 쓰셔도 좋지만 content(세번째 인자로 key-value 형태로 템플릿에 보내는 것) 인자가 필요 없다면 redirect 함수를 쓰시는 게 더 편할 겁니다. URL 이름만 알면 되니까요!
+	왜 그럴까요? 템플릿 파일을 작성하시다 보면 {% raw %} {% url 'home' %} {% endraw %} 등과 같이 urls.py에서 지정한 이름 만으로 손쉽게 URL을 추적할 수 있던 걸 보셨을 겁니다. 이러한 기능을 **reverse** 기능이라고 하는데, 장고에서는 템플릿 뿐만 아니라 views.py 등의 BackEnd 부분에서도 이러한 URL 추적 기능을 손쉽게 사용할 수 있도록 redirect 함수를 제공하고 있습니다. 다시 말하자면 그냥 render 함수를 쓰셔도 좋지만 content(세번째 인자로 key-value 형태로 템플릿에 보내는 것) 인자가 필요 없다면 redirect 함수를 쓰시는 게 더 편할 겁니다. URL 이름만 알면 되니까요!
 
 **_이제 실제로 로컬 서버를 작동시켜 Navbar에 있는 "글쓰기"를 눌러 글을 작성해보세요. home.html 화면에서 저장된 데이터가 잘 뿌려지고 있다면 성공하신 겁니다._**
 
@@ -445,7 +445,7 @@ def detail(request, post_id):
 
 **막간 - "근데 이 STATIC_URL은 뭔가요?"**
 
-* URL 템플릿 태그에서 url 'URL 이름' 과 같이 사용해보셨을 겁니다. 마찬가지로 static 또한 불러오는 템플릿 태그가 있습니다. 이 태그는 URL 태그와 비슷한 방식으로 동작합니다. 실제로 웹페이지에서 서버에 있는 파일을 불러올 때 경로로써 접근하기 때문에 우리가 urls.py에서 URL path를 지정해주듯이 Static 파일 또한 기본 경로를 지정해줘야 합니다. STATIC_URL은 밑에서 나올 {% static '파일 경로와 이름' %} 템플릿 태그를 사용할 때 맨 앞에 붙여줄 기본 경로를 의미한다고 이해하시면 됩니다.
+* URL 템플릿 태그에서 url 'URL 이름' 과 같이 사용해보셨을 겁니다. 마찬가지로 static 또한 불러오는 템플릿 태그가 있습니다. 이 태그는 URL 태그와 비슷한 방식으로 동작합니다. 실제로 웹페이지에서 서버에 있는 파일을 불러올 때 경로로써 접근하기 때문에 우리가 urls.py에서 URL path를 지정해주듯이 Static 파일 또한 기본 경로를 지정해줘야 합니다. STATIC_URL은 밑에서 나올 {% raw %} {% static '파일 경로와 이름' %} {% endraw %} 템플릿 태그를 사용할 때 맨 앞에 붙여줄 기본 경로를 의미한다고 이해하시면 됩니다.
 
 ```python
 STATICFILES_DIRS = [
@@ -646,7 +646,7 @@ class Posting(models.Model):
 {% endraw %}
 {% endhighlight %}
 
-*  {% load static %} {% static '이름' %} 콤보로 자동으로 URL이 연결되는 Static 파일과는 다르게, 우리가 urls.py에서 static 함수로 설정한 경로를 바탕으로 "객체 이름.객체 속성.url" 함수 이용을 통해 Media 파일에 대한 URL을 연결하고 있는 모습을 확인하실 수 있습니다.
+*  {% raw %} {% load static %} {% static '이름' %} {% endraw %} 콤보로 자동으로 URL이 연결되는 Static 파일과는 다르게, 우리가 urls.py에서 static 함수로 설정한 경로를 바탕으로 "객체 이름.객체 속성.url" 함수 이용을 통해 Media 파일에 대한 URL을 연결하고 있는 모습을 확인하실 수 있습니다.
 
 * 마찬가지로 home.html을 수정했으니 detail.html 부분도 수정해주도록 하겠습니다. 간단하게 title 밑부분에 다음과 같이 추가해 주세요.
 
