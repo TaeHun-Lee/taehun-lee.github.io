@@ -72,6 +72,7 @@ urlpatterns = [
 
 {% highlight html %}
 {% raw %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,6 +96,7 @@ urlpatterns = [
 	{% endblock %}
 </body>
 </html>
+
 {% endraw %}
 {% endhighlight %}
 
@@ -113,12 +115,14 @@ urlpatterns = [
 
 {% highlight html %}
 {% raw %}
+
 {% extends 'base.html' %}
 {% block body %}
 <div class="container">
 	<h1>Posting List</h1>
 </div>
 {% endblock %}
+
 {% endraw %}
 {% endhighlight %}
 
@@ -127,9 +131,11 @@ urlpatterns = [
 * 이후 base.html 내에 지정해 주었던 body block에 붙여넣기 될 코드를 작성해주는 구문이 바로
 
 {% raw %}
+
 {% block body %}
 ---이하 코드---
 {% endblock %}
+
 {% endraw %}
 입니다.
 
