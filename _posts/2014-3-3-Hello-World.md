@@ -95,7 +95,7 @@ urlpatterns = [
 	{% endblock %}
 </body>
 </html>
-{% endrow %}
+{% endraw %}
 {% endhighlight %}
 
 
@@ -111,22 +111,26 @@ urlpatterns = [
 
 * 이제 우리의 메인 페이지인 home.html을 작성해봅시다. home.html을 열어주세요.
 
-``` html
+{% highlight html %}
+{% raw %}
 {% extends 'base.html' %}
 {% block body %}
 <div class="container">
 	<h1>Posting List</h1>
 </div>
 {% endblock %}
-```
+{% endraw %}
+{% endhighlight %}
 
 * 이렇게 작성해 줍시다. {% extends 'base.html' %} 부분이 바로 base.html을 상속받겠다, 즉, 나 자신(home.html)은 base.html의 자식 템플릿이 되겠다는 것을 의미합니다. 
 
 * 이후 base.html 내에 지정해 주었던 body block에 붙여넣기 될 코드를 작성해주는 구문이 바로
 
+{% raw %}
 {% block body %}
 ---이하 코드---
 {% endblock %}
+{% endraw %}
 입니다.
 
 * 여기까지 작성하셨다면 이제 터미널에서 로컬 서버를 작동시켜 페이지를 확인해봅시다.
@@ -219,7 +223,8 @@ def home(request):
 * Posting 모델로 등록되어 있는 모든 객체를 .objects로 불러와 이를 Key-value 형태로 템플릿에 전달해주는 모습입니다.
 * 반환 함수도 만들었으니 이제 실제로 템플릿에서 DB 객체를 받아서 뿌려질 수 있도록 코드를 다듬어 봅시다. home.html에서 다음과 같이 작성해주세요.
 
-```html
+{% highlight html %}
+{% raw %}
 {% extends 'base.html' %}
 {% block body %}
 <div  class="container">
@@ -233,7 +238,8 @@ def home(request):
 	{% endfor %}
 </div>
 {% endblock %}
-```
+{% endraw %}
+{% endhighlight %}
 
 * 이제 admin 페이지에서 Posting 객체를 하나 만들어 본 뒤 로컬 서버를 작동시켜 home.html에 제대로 뿌려지고 있는지 확인해봅시다. 다음과 같이 나오면 잘 하신 겁니다.
 
@@ -259,7 +265,8 @@ urlpatterns = [
 
 * 이제 views.py로 새로 만들 객체에 대한 정보를 보내줄 수 있도록 new.html을 작성해줍시다. new.html 또한 base.html을 상속받고 있어야함을 잊지 말아주세요. new.html을 열어 다음과 같이 작성해주세요.
 
-```html
+{% highlight html %}
+{% raw %}
 {% extends 'base.html' %}
 {% block body %}
 <div class="container">
@@ -275,7 +282,8 @@ urlpatterns = [
 	</form>
 </div>
 {% endblock %}
-```
+{% endraw %}
+{% endhighlight %}
 
 * form 태그로 우리가 모델로 작성했던 title, body에 대해 입력받고 있습니다. 여기서 pub_date 속성은 입력으로 전해주는 게 아니라 게시글이 작성되는 시점을 자동적으로 처리해야 하므로 템플릿이 아닌 views.py에서 처리해주도록 하겠습니다.
 
@@ -378,22 +386,26 @@ def detail(request, post_id):
 
 * detail 함수는 이렇게 찾은 객체를 detail.html에 render 함수를 통해 보내주는 역할을 합니다. 이제 구체적으로 detail.html에서 받은 객체를 어떻게 띄워줄 것인지 작성해봅시다. detail.html에서 다음과 같이 작성해주세요.
 
-```html
+{% highlight html %}
+{% raw %}
 {% extends 'base.html' %}
 {% block body %}
 <h1>Detail of <span>{{post.title}}</span></h1>
 <p>{{post.pub_date}}</p>
 <p>{{post.body}}</p>
 {% endblock %}
-```
+{% endraw %}
+{% endhighlight %}
 
 * 찾아온 객체를 key-value 형태에서 'post'라는 문자열로 보내주었기 때문에 장고 변수 템플릿(중괄호 두개 형태)으로 사용이 가능한 모습입니다.
 
 * detail.html이 잘 작동하고 있는지 확인하기 위해 home.html에서 detail.html로 들어가는 통로를 하나 만들어 줍시다. h1 태그로 감싸져 있는 posting.title 부분을 다음과 같이 수정해주세요.
 
-```html
+{% highlight html %}
+{% raw %}
 <a  href="{% url 'detail' posting.id %}"><h1>{{posting.title}}</h1></a>
-```
+{% endraw %}
+{% endhighlight %}
 
 **_이제 다시 로컬 서버를 켜서 home.html에 있는 타이틀 부분을 눌러 detail.html로 접속해봅시다. 잘 접속된다면, 축하드립니다! 이제 CR부분을 완성하신 겁니다!_**
 
@@ -481,15 +493,18 @@ STATICFILES_FINDERS = (
 
 * 이제 home.html에서 이 static 파일, 즉 이미지를 띄워줍시다. 장고에선 템플릿 파일에서 static 파일을 불러오기 위해 써주어야 하는 템플릿 태그가 있습니다. 우리가 앞서 사용해보았던 extends 와 같이 서버 내에 존재하는 파일을 템플릿으로 불러올 때 필요한 절차라고 이해해주세요.
 
-```html
+{% highlight html %}
+{% raw %}
 	{% load static %}
-```
+{% endraw %}
+{% endhighlight %}
 
 * extends 템플릿 태그가 템플릿 파일을 불러오는 것이라면 load static 태그는 static 파일을 불러오는 태그입니다. extends 태그 밑에, block 태그 위에 이 태그를 넣어주세요.
 
 * 이제 실제로 이미지 파일을 home.html 안에 넣어줍시다. 다음과 같은 코드를 이미지가 뜨길 원하는 임의의 위치에 넣어주세요. 저는 다음과 같이 작성하였습니다.
 
-```html
+{% highlight html %}
+{% raw %}
 {% extends 'base.html' %}
 {% load static %}
 {% block body %}
@@ -507,7 +522,8 @@ STATICFILES_FINDERS = (
 	{% endfor %}
 </div>
 {% endblock %}
-```
+{% endraw %}
+{% endhighlight %}
 
 * 이제 로컬 서버를 실행하여 home.html을 확인해주세요. 다음과 같이 나오면 성공한 것입니다.
 
@@ -603,7 +619,8 @@ class Posting(models.Model):
 
 * 이렇게 업로드한 Media 파일을 home.html에서 한번 불러와 볼까요? home.html에서 다음과 같이 추가해주세요.
 
-```html
+{% highlight html %}
+{% raw %}
 {% extends 'base.html' %}
 {% load static %}
 {% block body %}
@@ -622,15 +639,18 @@ class Posting(models.Model):
 	{% endfor %}
 </div>
 {% endblock %}
-```
+{% endraw %}
+{% endhighlight %}
 
 *  {% load static %} {% static '이름' %} 콤보로 자동으로 URL이 연결되는 Static 파일과는 다르게, 우리가 urls.py에서 static 함수로 설정한 경로를 바탕으로 "객체 이름.객체 속성.url" 함수 이용을 통해 Media 파일에 대한 URL을 연결하고 있는 모습을 확인하실 수 있습니다.
 
 * 마찬가지로 home.html을 수정했으니 detail.html 부분도 수정해주도록 하겠습니다. 간단하게 title 밑부분에 다음과 같이 추가해 주세요.
 
-```html
+{% highlight html %}
+{% raw %}
 	<img  src="{{ post.image.url }}">
-```
+{% endraw %}
+{% endhighlight %}
 
 * 이제 admin 페이지에서 데이터를 몇개 추가하신 뒤 home.html 과 detail.html에서 실제로 Media 파일이 뜨고 있는지 확인해주세요. 잘 뜬다면 성공하신 겁니다!
 
@@ -640,7 +660,8 @@ class Posting(models.Model):
 
 * 우리는 이미 모델에 이미지 속성을 추가하였으니 new.html에서 실제로 웹사이트 이용자가 이미지를 업로드 할 수 있도록 수정해줍시다! 몇가지 설명할 부분이 있으니 코드와 함께 설명하겠습니다.
 
-```html
+{% highlight html %}
+{% raw %}
 {% extends 'base.html' %}
 {% block body %}
 <div class="container">
@@ -662,7 +683,8 @@ class Posting(models.Model):
 	</form>
 </div>
 {% endblock %}
-```
+{% endraw %}
+{% endhighlight %}
 
 * 먼저 form 태그에 추가된 ```enctype="multipart/form-data"```  부분은 인코딩에 대해 정의하는 부분이라고 이해해주세요. 우리가 현재 웹사이트 이용자에게 업로드 하도록 새로 촉구한 부분은 '이미지'이지만 실제로 form 태그 자체는 '이미지'와 '일반 파일'을 동격의 파일로 취급합니다. 따라서 이렇게 POST 방식으로 보내지는 파일에 대한 보안을 위해 표준 인코딩 타입을 정해주어야 "아, 이것은 규격에 맞는 파일이군" 하고 서버가 받을 수 있게 됩니다.
 
@@ -752,9 +774,11 @@ class Posting(models.Model):
 
 * 간단합니다. home.html에서 객체에 붙어있는 이미지를 보여주는 부분을 썸네일로 바꿔주기만 하면 됩니다. 다음과 같이 수정해주세요.
 
-```html
+{% highlight html %}
+{% raw %}
 	<img  src="{{ posting.image_thumnail.url }}">
-```
+{% endraw %}
+{% endhighlight %}
 * 이제 로컬 서버를 켜서 실제로 썸네일 이미지가 잘 나오고 있는지 확인해줍시다. 다음과 같이 나오면 성공하신 겁니다!
 ![Thumbnail_test](https://user-images.githubusercontent.com/46686577/55428087-5a17be80-55c3-11e9-941e-ac59840a5fa0.png)
 
