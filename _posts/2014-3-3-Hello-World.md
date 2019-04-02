@@ -186,6 +186,7 @@ class Posting(models.Model):
 * 이제 우리가 해당 모델 데이터를 admin 레벨에서 관리할 수 있도록 admin.py에 모델을 등록하고 admin 계정을 생성해서 실제로 DB에 우리가 등록한 모델로 테이블이 만들어 졌는지 확인해봅시다.
 
 * 먼저 admin 계정을 생성해줍시다. 터미널에 다음과 같이 쳐주세요.
+
 ```python
 	python manage.py createsuperuser
 ```
@@ -195,6 +196,7 @@ class Posting(models.Model):
 </blockquote>
 
 * 이제 admin.py에 가서 다음과 같이 코드를 작성하여 모델을 admin 레벨에 등록해줍니다.
+
 ```python
 from django.contrib import admin
 from .models import Posting
