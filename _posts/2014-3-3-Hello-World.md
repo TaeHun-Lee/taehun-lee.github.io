@@ -3,7 +3,7 @@ layout: post
 title: 09. CR 복습/Static, Media/Thubmnail
 category: session
 ---
-# 정규세션 09 - prod. 이태훈
+정규세션 09 - prod. 이태훈
 ## Session Preview
 
 * 본 세션 자료에서는 지난 세션에서 진행하였던 CR(Create, Read)에 템플릿 상속을 곁들인 FrontEnd를 추가하여 간단한 복습을 진행해 보겠습니다.
