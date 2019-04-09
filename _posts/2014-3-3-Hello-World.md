@@ -461,13 +461,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 * STATIC_ROOT는 Collectstatic 작업을 통해 Static 파일들이 모여질 목적지 경로를 지정하는 부분입니다.
 
-* 예를 들어 설명하자면, 우리는 App 폴더 밑에 static이라는 폴더를 만들어 그 밑에 img 폴더를 만들고 그 안에 이미지 파일을 넣을 것입니다. 따라서 STATICFILES_DIRS에는 board 앺 안에 static이라는 폴더를 지정해줍니다, 이로써 img 폴더 전체가 Static 파일의 경로로 잡히게 됩니다.
+* 예를 들어 설명하자면, 우리는 App 폴더 밑에 static이라는 폴더를 만들어 그 밑에 img 폴더를 만들고 그 안에 이미지 파일을 넣을 것입니다. 따라서 STATICFILES_DIRS에는 board App 안에 static이라는 폴더를 지정해줍니다, 이로써 img 폴더가 위치한 레벨 전체가 Static 파일의 경로로 잡히게 됩니다.
 
 * 그리고 collectstatic을 하게 되면, BASE_DIR(최상위 폴더) 바로 밑에 static이라는 폴더가 존재한다면 그 폴더에, 존재하지 않는다면 새로 그 이름과 같은 폴더를 만들게 됩니다. 그 후 해당 폴더로 STATICFIELS_DIRS 경로에 지정되어 있는 모든 static 파일들을 모으게 됩니다.
 
-**"App에 static 파일이 이미 있는데 최상위폴더에 굳이 수고를 들여가며 새로 복사해주는 이유가 뭔가요?"**
+**"App에 static 파일이 이미 있는데 collectstatic으로 최상위폴더(STATIC_ROOT)에 굳이 수고를 들여가며 새로 복사해주는 이유가 뭔가요?"**
 
-* 그 이유는 바로 우리가 개발중이기 때문입니다. 개발 단계에서는 App별로 static 폴더를 분리하여 관리하는 것이 훨씬 편합니다, 우리는 각 App 마다의 이미지 파일, 동영상 파일, CSS, JS 등을 관리하기만 하면 되니까요. 하지만 실제 배포 단계에서는 이것이 속도 저하의 원인이 됩니다. 각각의 App마다 서로 다른 경로가 있기 때문에 새로 Path Finding을 하며 파일에 접근한다면 당연히 속도가 느려질 수 밖에 없겠죠. 따라서 Collectstatic 작업을 통해 하나의 최상위폴더에 모아둠으로써 성능 개선을 하는 겁니다.
+* 그 이유는 바로 우리가 개발중이기 때문입니다. 개발 단계에서는 App별로 static 폴더를 분리하여 관리하는 것이 훨씬 편합니다, 우리는 각 App 마다의 이미지 파일, 동영상 파일, CSS, JS 등을 관리하기만 하면 되니까요. Django는 contrib라는 친구가 Finder라는 도구를 사용해 파일 트래킹을 해주기 때문에 개발 단계(Debug=True)에서는 App 폴더에 있는 static 파일에 대한 URL을 자동으로 계산해줍니다. 따라서 우리가 개발하면서 App폴더에 static 폴더를 만들어 그 안에 파일을 넣고 템플릿에서 static 태그를 사용해도 Django는 알아서 해당 파일에 대한 URL을 산출하여 파일을 띄워줍니다. 하지만 배포 단계에서는 이렇게 하면 안됩니다. 조금 복잡한 이야기가 이면에 존재하므로 자세한 설명은 생략하고, 간단히 말하면 속도/성능에 대한 문제와 Django Server App과 실제 Server가 다르기 때문이라고만 알아둡시다. 따라서 배포 단계를 위해선 collectstatic을 해서 STATIC_ROOT 경로에 static 파일들을 모아주는 것이 Django Style입니다. 
 
 **"경로와 루트를 지정해주고 collectstatic을 하려니까 이미 있는 파일들 한번더 collect하겠냐는 메세지가 뜨는데요?"**
 * 아까 추가한 코드에 다음과 같은 코드를 하나 더 추가해주세요.
@@ -537,7 +537,7 @@ STATICFILES_FINDERS = (
 ![static_check](https://user-images.githubusercontent.com/46686577/55428084-597f2800-55c3-11e9-8c49-a18386889acc.png)
 
 **저는 안뜨는데요?!**
-* 혹시 이미지 파일늘 넣고 collectstatic을 하셨는지 확인해주세요. 실제 최상위폴더 밑에 있는 static/img/ 경로에 이미지 파일이 있어야합니다.
+* 페이지 캐시가 남아있어 브라우저가 웹 페이지를 새로 로드하지 않을 수도 있습니다. 쿠키를 삭제하고 다시 로드해보세요. 그래도 안된다면 Finder가 길을 헤메고 있을 수도 있으니 collectstatic을 통해 STATIC_ROOT에 파일을 모아준 뒤 다시 로드해 봅시다.
 
 ## MEDIA
 
@@ -793,4 +793,7 @@ class Posting(models.Model):
 이상 이번 9번째 세션을 마무리하도록 하겠습니다.
 따라와 주신 여러분 모두 수고 많으셨습니다. 질문이 있으시다면 주저 말고 연락해주세요.
 감사합니다.
-</blockquote>
+</blockquote>  
+
+* PPT 참고 
+[9th_session.pdf](https://github.com/TaeHun-Lee/Picture_test/files/3060480/9th_session.pdf)
