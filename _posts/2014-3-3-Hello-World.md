@@ -796,4 +796,5 @@ class Posting(models.Model):
 </blockquote>  
 
 * PPT 참고 
+
 [9th_session.pdf](https://github.com/TaeHun-Lee/Picture_test/files/3060480/9th_session.pdf)
