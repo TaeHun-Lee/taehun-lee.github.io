@@ -1,9 +1,8 @@
 ---
 layout: post
-title: 09. CR 복습/Static, Media/Thubmnail
+title: 09. New Project - CR Review / Static , Media / Thumbnail - prod. TaeHun Lee
 category: session
 ---
-# New Project - CR Review / Static , Media / Thumbnail - prod. TaeHun Lee
 
 ## Session Preview
 
