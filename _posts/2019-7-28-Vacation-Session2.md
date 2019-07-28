@@ -3,9 +3,9 @@ layout: post
 title: Vacation Session 2. Python HTML Calendar를 이용한 Simple Scheduler
 category: 7th
 ---
-    
+
 Vacation Session 2 - prod. 이태훈
-    
+
 ## Session Preview
     
 -   본 세션 자료에서는 Python 내장 HTML Calendar를 이용하여 간단한 Scheduler를 만들어 보도록 하겠습니다.
